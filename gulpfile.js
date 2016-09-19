@@ -2,6 +2,7 @@
     'use strict';
 
     const browserify = require('browserify');
+    const spawn = require('child_process').spawn;
     const gulp = require('gulp');
     const sourcemaps = require('gulp-sourcemaps');
     const ts = require('gulp-typescript');
@@ -57,5 +58,7 @@
 
     gulp.task('watch-ts', () => gulp.watch(['./src/**/*.ts'], ['bundle']));
     gulp.task('watch-assets', () => gulp.watch(paths.assetWatchPatterns, ['assets']));
-    gulp.task('watch', ['build', 'watch-ts', 'watch-assets']);
+    gulp.task('watch', ['build', 'watch-ts', 'watch-assets'], () => {
+        spawn('node', ['server/app.js'], { stdio: 'inherit' });
+    });
 }());
