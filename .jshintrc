@@ -1,6 +1,7 @@
 {
     "esversion": 6,
+    "predef": ["require", "console"],
+    "strict": true,
     "undef": true,
-    "unused": true,
-    "predef": ["require"]
+    "unused": true
 }

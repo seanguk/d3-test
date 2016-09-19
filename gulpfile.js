@@ -57,5 +57,5 @@
 
     gulp.task('watch-ts', () => gulp.watch(['./src/**/*.ts'], ['bundle']));
     gulp.task('watch-assets', () => gulp.watch(paths.assetWatchPatterns, ['assets']));
-    gulp.task('watch', ['watch-ts', 'watch-assets']);
+    gulp.task('watch', ['build', 'watch-ts', 'watch-assets']);
 }());
