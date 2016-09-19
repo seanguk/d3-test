@@ -15,14 +15,14 @@
     });
 
     function buildGraph() {
-        const numNodes = getWholeRandom(30),
+        const numNodes = getWholeRandom(3, 30),
             chanceOfEdge = Math.random() / 10;
         
         console.log('generating graph with', numNodes, 'nodes', 'and', chanceOfEdge, 'chance');
         return randomGraph.ErdosRenyi.np(numNodes, chanceOfEdge);
     }
 
-    function getWholeRandom(max) {
-        return Math.floor((Math.random() * max) + 1);
+    function getWholeRandom(min, max) {
+        return Math.floor((Math.random() * (max - min + 1)) + min);
     }
 })();
