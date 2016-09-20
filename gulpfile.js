@@ -37,11 +37,11 @@
 
     gulp.task('bundle', ['transpile'], () => {
         return browserify({
-            entries: [path.join(paths.outputJavascript, 'charting.js')],
+            entries: [path.join(paths.outputJavascript, 'main.js')],
             debug: true
         })
         .bundle()
-        .pipe(source(path.join(paths.outputJavascript, 'charting.min.js')))
+        .pipe(source(path.join(paths.outputJavascript, 'main.min.js')))
         .pipe(buffer())
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(uglify())
@@ -56,9 +56,11 @@
 
     gulp.task('build', ['assets', 'bundle']);
 
-    gulp.task('watch-ts', () => gulp.watch(['./src/**/*.ts'], ['bundle']));
-    gulp.task('watch-assets', () => gulp.watch(paths.assetWatchPatterns, ['assets']));
-    gulp.task('watch', ['build', 'watch-ts', 'watch-assets'], () => {
+    gulp.task('serve', () => {
         spawn('node', ['server/app.js'], { stdio: 'inherit' });
     });
+
+    gulp.task('watch-ts', () => gulp.watch(['./src/**/*.ts'], ['bundle']));
+    gulp.task('watch-assets', () => gulp.watch(paths.assetWatchPatterns, ['assets']));
+    gulp.task('watch', ['build', 'watch-ts', 'watch-assets', 'serve']);
 }());
