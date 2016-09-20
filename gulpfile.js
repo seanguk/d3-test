@@ -3,6 +3,7 @@
 
     const browserify = require('browserify');
     const spawn = require('child_process').spawn;
+    const del = require('del');
     const gulp = require('gulp');
     const sourcemaps = require('gulp-sourcemaps');
     const ts = require('gulp-typescript');
@@ -15,12 +16,16 @@
     const tsProject = ts.createProject('./tsconfig.json');
 
     const paths = {
-        typeDefinitions: './dist/definitions/',
-        inputTypescript: './src/ts/',
-        output: './dist/',
-        outputJavascript: './dist/js/',
+        typeDefinitions: 'dist/definitions/',
+        inputTypescript: 'src/ts/',
+        output: 'dist/',
+        outputJavascript: 'dist/js/',
         assetWatchPatterns: ['src/**/*', '!src/{ts,ts/**}']
     };
+
+    gulp.task('clean', () => {
+        del(paths.output);
+    });
 
     gulp.task('transpile', () => {
         const tsResult = tsProject.src()
@@ -62,5 +67,5 @@
 
     gulp.task('watch-ts', () => gulp.watch(['./src/**/*.ts'], ['bundle']));
     gulp.task('watch-assets', () => gulp.watch(paths.assetWatchPatterns, ['assets']));
-    gulp.task('watch', ['build', 'watch-ts', 'watch-assets', 'serve']);
+    gulp.task('watch', ['clean', 'build', 'watch-ts', 'watch-assets', 'serve']);
 }());

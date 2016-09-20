@@ -5,6 +5,7 @@
       "module": "commonjs",
       "noImplicitAny": true,
       "noEmitOnError": true,
+      "rootDir": "./src/ts/",
       "outDir": "./dist/js/"
   },
   "exclude": [
